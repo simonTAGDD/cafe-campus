@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CaféCampus · Café colombiano de origen entre clase y clase</title>
+<meta name="description" content="Café colombiano de origen, listo entre clase y clase. Pide por WhatsApp sin filas y suscríbete a 20 cafés al mes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --espresso:#3E2723; --latte:#D7CCC8; --crema:#F5F5F0; --naranja:#E65100;
+  --bg:var(--crema); --surface:#fff; --text:var(--espresso); --muted:#6d5a55;
+  --line:var(--latte); --accent:var(--naranja); --on-accent:#fff;
+  --band:var(--espresso); --on-band:var(--crema); --tint:#ece4df;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"Figtree","Segoe UI",Arial,sans-serif;
+  --r:18px; --nav-h:68px;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#241613; --surface:#33211d; --text:var(--crema); --muted:#c3b3ad; --line:#4c3631;
+    --accent:#ff7a2e; --on-accent:#241613; --band:#1a0f0d; --on-band:var(--crema); --tint:#3a2723; color-scheme:dark;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 8px)}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;letter-spacing:-.02em}
+h1{font-size:clamp(2.5rem,7vw,4.8rem);font-weight:800}
+h2{font-size:clamp(1.9rem,4.5vw,2.9rem);font-weight:800}
+h3{font-size:1.25rem;font-weight:800}
+p{margin:0}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+section{padding-block:clamp(3.5rem,8vw,6rem)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font:600 1rem var(--body);text-decoration:none;
+  padding:.9rem 1.5rem;border-radius:999px;background:var(--accent);color:var(--on-accent);border:2px solid var(--accent);cursor:pointer;
+  transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn.sm{padding:.55rem 1.1rem;font-size:.95rem}
+
+/* Navegación */
+.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;height:var(--nav-h);z-index:50;background:var(--band);color:var(--on-band);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:100%;gap:1rem}
+.brand{display:flex;align-items:center;gap:.65rem;text-decoration:none}
+.brand img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
+.logo{font:800 1.45rem var(--display);letter-spacing:-.02em}
+.logo span{color:var(--latte)}
+.nav ul{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font-weight:500;opacity:.88}
+.nav ul a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
+@media (max-width:820px){.nav ul{display:none}}
+
+/* Hero */
+.hero{padding-top:calc(var(--nav-h) + clamp(2.8rem,7vw,5rem));background:var(--band);color:var(--on-band);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.badge{display:inline-block;background:rgba(230,81,0,.22);color:#ffb74d;border:1px solid rgba(230,81,0,.5);padding:.35rem .85rem;border-radius:999px;font-size:.88rem;font-weight:600;margin-bottom:1rem}
+.hero p.lead{max-width:34rem;margin-top:1.3rem;font-size:1.15rem;color:var(--latte)}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+.hero .note{margin-top:1.25rem;font-size:.95rem;color:var(--latte);opacity:.85}
+.hero-visual{position:relative}
+.hero-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);box-shadow:0 24px 48px rgba(0,0,0,.45);border:2px solid rgba(215,204,200,.2)}
+.ticket{background:var(--crema);color:var(--espresso);border-radius:var(--r);padding:1.25rem 1.4rem;margin-top:-2.2rem;margin-inline:1.2rem;position:relative;box-shadow:0 16px 32px rgba(0,0,0,.35)}
+.ticket h3{font-size:1.05rem;margin-bottom:.6rem;display:flex;justify-content:space-between;align-items:center}
+.ticket li{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px dashed #b9a9a3;font-size:.94rem}
+.ticket ul{list-style:none;margin:0;padding:0}
+.ticket li:last-child{border:0}
+.ticket small{display:block;margin-top:.6rem;color:#6d5a55;font-weight:500}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.ticket{margin-inline:0}}
+
+/* Pilares */
+.pillars{background:var(--tint);padding-block:2.8rem;border-bottom:1px solid var(--line)}
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.pillar-item{background:var(--surface);padding:1.4rem;border-radius:var(--r);border:1px solid var(--line)}
+.pillar-item strong{display:block;font-family:var(--display);font-size:1.15rem;margin-bottom:.35rem;color:var(--accent)}
+.pillar-item p{font-size:.95rem;color:var(--muted)}
+
+/* Catálogo */
+.head{max-width:44rem;margin-bottom:2rem}
+.head p{margin-top:.7rem;color:var(--muted)}
+.cat-title{font-size:1.5rem;margin:2.8rem 0 1.2rem;padding-bottom:.5rem;border-bottom:2px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.cat-title span{font-size:.92rem;font-family:var(--body);font-weight:500;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.3rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s ease}
+.card:hover{transform:translateY(-3px)}
+.card .pic{aspect-ratio:16/10;overflow:hidden;background:#E9D8CE;position:relative}
+.card .pic img{width:100%;height:100%;object-fit:cover}
+.card .tag{position:absolute;top:.7rem;right:.7rem;background:var(--espresso);color:var(--crema);font-size:.75rem;font-weight:600;padding:.25rem .65rem;border-radius:999px}
+.card .body{padding:1.2rem 1.3rem 1.35rem;display:flex;flex-direction:column;gap:.45rem;flex:1}
+.card .body p{color:var(--muted);font-size:.95rem;flex:1}
+.price{display:flex;align-items:center;justify-content:space-between;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--line);font-weight:700;font-size:1.05rem}
+.price a{font-size:.92rem;color:var(--accent);font-weight:600;text-decoration:none}
+.price a:hover{text-decoration:underline}
+
+/* Promociones banner */
+.promos{margin-top:3rem;background:var(--espresso);color:var(--crema);border-radius:var(--r);padding:1.8rem 2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem}
+.promo-box{border-left:3px solid var(--accent);padding-left:.9rem}
+.promo-box strong{display:block;font-family:var(--display);font-size:1.05rem;color:#ffb74d}
+.promo-box span{font-size:.92rem;color:var(--latte)}
+
+/* Suscripción */
+.sub{background:var(--tint)}
+.sub .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.sub ul{list-style:none;padding:0;margin:1.5rem 0 2rem;display:grid;gap:.65rem}
+.sub li{padding-left:1.8rem;position:relative}
+.sub li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:800}
+.big{font:800 3rem var(--display);letter-spacing:-.03em}
+.big small{font:500 1rem var(--body);color:var(--muted);letter-spacing:0}
+.save{color:var(--muted);margin-bottom:1.6rem}
+.punch{background:var(--surface);border:2px solid var(--espresso);border-radius:var(--r);padding:1.5rem;
+  background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:14px 14px}
+.punch header{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:1.1rem;flex-wrap:wrap}
+.punch header strong{font:800 1.25rem var(--display)}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem}
+.stamp{aspect-ratio:1;border-radius:50%;border:2px dashed var(--muted);background:transparent;cursor:pointer;font-size:1.4rem;display:grid;place-items:center;color:transparent;padding:0;transition:transform .2s ease,background .2s ease}
+.stamp[aria-pressed="true"]{background:var(--accent);border:2px solid var(--accent);color:var(--on-accent);transform:rotate(-12deg) scale(1.05)}
+.punch p{margin-top:1rem;font-size:.92rem;color:var(--muted)}
+@media (max-width:860px){.sub .wrap{grid-template-columns:1fr;gap:2.5rem}}
+
+/* Pie */
+footer{background:var(--band);color:var(--on-band);padding-block:3.2rem 2rem}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem}
+footer h4{font:800 1rem var(--display);margin:0 0 .7rem}
+footer p,footer li,footer a{color:var(--latte);font-size:.96rem;text-decoration:none}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.legal{margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid rgba(215,204,200,.25);font-size:.88rem;color:var(--latte);opacity:.8}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#inicio">
+      <img src="logo.jpg" alt="Logo CaféCampus">
+      <span class="logo">Café<span>Campus</span></span>
+    </a>
+    <ul>
+      <li><a href="#pilares">Servicio</a></li>
+      <li><a href="#catalogo">Menú</a></li>
+      <li><a href="#suscripcion">Suscripción</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="btn sm" href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%20%E2%98%95%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <span class="badge">☕ Pequeños sorbos, grandes historias</span>
+      <h1>Café colombiano de origen, listo entre clase y clase.</h1>
+      <p class="lead">Somos la cafetería que respeta tu tiempo: café de especialidad tostado en lotes pequeños, pedido desde el celular y recogido en 5 minutos, a precios pensados para el bolsillo universitario.</p>
+      <div class="actions">
+        <a class="btn" href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%20%E2%98%95%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        <a class="btn ghost" href="#suscripcion">Ver suscripción de 20 cafés</a>
+      </div>
+      <p class="note">Pagos por Nequi, Daviplata o en caja · Lunes a viernes, 6:30 a. m. a 6:30 p. m.</p>
+    </div>
+    <div class="hero-visual">
+      <img class="hero-photo" src="cafe-1.jpg" alt="Capuchino de especialidad CaféCampus en escritorio universitario">
+      <aside class="ticket" aria-label="Pedido de ejemplo">
+        <h3><span>⚡ Pedido Express #104</span><span>Listo en 5 min</span></h3>
+        <ul>
+          <li><span>Cappuccino Cafetal (Huila)</span><span>$6.500</span></li>
+          <li><span>Combo 1 · Primer Semestre</span><span>$6.500</span></li>
+          <li><span>Recogida en barra</span><span>09:55 a. m.</span></li>
+        </ul>
+        <small>Pídelo antes de salir de clase y recógelo sin hacer fila.</small>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="pillars" id="pilares">
+  <div class="wrap">
+    <div class="pillars-grid">
+      <div class="pillar-item">
+        <strong>⚡ Pedidos Express por WhatsApp</strong>
+        <p>Pide desde el salón o la biblioteca, paga por Nequi o Daviplata y recoge en 5 minutos sin hacer fila.</p>
+      </div>
+      <div class="pillar-item">
+        <strong>🎟️ Suscripción 20 Cafés / Mes</strong>
+        <p>Plan prepago mensual con tarjeta digital, descuento por taza y prioridad en horas pico entre clases.</p>
+      </div>
+      <div class="pillar-item">
+        <strong>🥐 Combos para Madrugadores</strong>
+        <p>Café de origen + acompañante recién horneado a precio cerrado. Presenta tu carné y recibe 10% de descuento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catalogo">
+  <div class="wrap">
+    <div class="head">
+      <h2>Menú CaféCampus</h2>
+      <p>Granos 100% colombianos (Quindío, Huila, Nariño y Sierra Nevada). Elige leche de avena o almendra en cualquier café por +$1.500.</p>
+    </div>
+
+    <h3 class="cat-title">1. Cafés de Origen y Opciones Veganas <span>Tostados en lotes pequeños</span></h3>
+    <div class="grid">
+      <article class="card">
+        <div class="pic"><img src="cafe-3.jpg" alt="Huila al Amanecer Espresso"><span class="tag">Origen Huila</span></div>
+        <div class="body">
+          <h3>Huila al Amanecer (Espresso)</h3>
+          <p>Intenso y limpio, con notas a panela, caramelo y un final de cacao.</p>
+          <div class="price"><span>$3.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20un%20Huila%20al%20Amanecer" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="cafe-1.jpg" alt="Cappuccino Cafetal"><span class="tag">Favorito</span></div>
+        <div class="body">
+          <h3>Cappuccino Cafetal</h3>
+          <p>Espuma cremosa sobre espresso vibrante; sabor a cacao tostado y leche dulce.</p>
+          <div class="price"><span>$6.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20un%20Cappuccino%20Cafetal" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="cafe-4.jpg" alt="Café del Quindío"><span class="tag">Origen Quindío</span></div>
+        <div class="body">
+          <h3>Café del Quindío</h3>
+          <p>Café colombiano de altura del Quindío, balanceado y suave, con notas a caña dulce, mandarina y chocolate.</p>
+          <div class="price"><span>$5.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20un%20Caf%C3%A9%20del%20Quind%C3%ADo" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="cafe-3.jpg" alt="Americano Sierra Nevada"><span class="tag">Sierra Nevada</span></div>
+        <div class="body">
+          <h3>Americano Sierra Nevada</h3>
+          <p>Espresso alargado, suave y aromático, con matices de nuez y chocolate oscuro.</p>
+          <div class="price"><span>$4.000</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20un%20Americano%20Sierra%20Nevada" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="cat-title">2. Bebidas Frías <span>Para el sol del campus y tardes de entrega</span></h3>
+    <div class="grid">
+      <article class="card">
+        <div class="pic"><img src="cafe-2.jpg" alt="Cold Brew Madrugón"><span class="tag">18h Extracción</span></div>
+        <div class="body">
+          <h3>Cold Brew Madrugón</h3>
+          <p>Infusionado 18 horas: suave, dulce y sin amargor, con notas a chocolate.</p>
+          <div class="price"><span>$7.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20un%20Cold%20Brew%20Madrug%C3%B3n" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="cafe-1.jpg" alt="Iced Latte Parcial"><span class="tag">Refrescante</span></div>
+        <div class="body">
+          <h3>Iced Latte Parcial</h3>
+          <p>Espresso sobre hielo y leche fría: refrescante, equilibrado y cremoso.</p>
+          <div class="price"><span>$7.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20un%20Iced%20Latte%20Parcial" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="cafe-7.jpg" alt="Frappé Final de Semestre"><span class="tag">Recompensa</span></div>
+        <div class="body">
+          <h3>Frappé Final de Semestre</h3>
+          <p>Café helado cremoso con caramelo y crema batida; dulce recompensa tras el examen.</p>
+          <div class="price"><span>$9.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20un%20Frapp%C3%A9%20Final%20de%20Semestre" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="cat-title">3. Combos de Desayuno Estudiante <span>10% de descuento presentando tu carné</span></h3>
+    <div class="grid">
+      <article class="card">
+        <div class="pic"><img src="cafe-5.jpg" alt="Combo 1 · Primer Semestre"><span class="tag">Combo 1</span></div>
+        <div class="body">
+          <h3>Combo 1 · Primer Semestre</h3>
+          <p>Café colombiano + pan de queso recién horneado. Cálido, crujiente y perfecto para empezar suave.</p>
+          <div class="price"><span>$6.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20el%20Combo%201%20Primer%20Semestre" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="pic"><img src="cafe-6.jpg" alt="Combo 2 · Madrugador"><span class="tag">Combo 2</span></div>
+        <div class="body">
+          <h3>Combo 2 · Madrugador</h3>
+          <p>Café del Quindío + sándwich o tostada del campus. Energía completa para arrancar el día sin afán.</p>
+          <div class="price"><span>$12.500</span><a href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20el%20Combo%202%20Madrugador" target="_blank" rel="noopener">Pedir →</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="promos" aria-label="Promociones Campus">
+      <div class="promo-box"><strong>🎁 Café #10 Gratis</strong><span>Con tu tarjeta de fidelidad física o digital.</span></div>
+      <div class="promo-box"><strong>🧊 Happy Hour 3–5 p.m.</strong><span>2x1 en bebidas frías seleccionadas.</span></div>
+      <div class="promo-box"><strong>📚 Semana de Parciales</strong><span>Recarga de tinto de origen a solo $2.000.</span></div>
+      <div class="promo-box"><strong>♻️ Trae tu Termo</strong><span>Descuento de $500 en cualquier bebida.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sub" id="suscripcion">
+  <div class="wrap">
+    <div>
+      <h2>Tu café de cada día, con descuento y sin pensar en pagar</h2>
+      <ul>
+        <li>20 cafés al mes (tinto, americano, cappuccino, café del Quindío o cold brew)</li>
+        <li>Posibilidad de compartir tu código digital entre dos compañeros</li>
+        <li>Prioridad en pedidos express de WhatsApp en horas pico</li>
+        <li>Bebida del mes incluida y planes especiales para docentes y semilleros</li>
+      </ul>
+      <div class="big">$89.000 <small>/ mes</small></div>
+      <p class="save">Pagas $4.450 por café en lugar de $6.500: ahorras hasta $41.000 al mes.</p>
+      <a class="btn" href="https://wa.me/573101234567?text=Hola%20Caf%C3%A9Campus%2C%20quiero%20activar%20mi%20suscripci%C3%B3n%20mensual%20de%2020%20caf%C3%A9s" target="_blank" rel="noopener">Suscribirme por WhatsApp</a>
+    </div>
+    <div class="punch" aria-label="Tarjeta digital de 20 cafés">
+      <header><strong>Tarjeta Digital Mensual</strong><span id="count">0 de 20 cafés</span></header>
+      <div class="stamps" id="stamps"></div>
+      <p>Haz clic en los círculos para simular cómo se descuentan tus cafés cada mañana.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#inicio">
+        <img src="logo.jpg" alt="Logo CaféCampus">
+        <span class="logo">Café<span>Campus</span></span>
+      </a>
+      <p style="margin-top:.8rem;max-width:22rem">Café bueno, trato bueno, y a clase sin afán. Granos 100% colombianos dentro de tu campus.</p>
+    </div>
+    <div>
+      <h4>Ubicación y Horario</h4>
+      <ul>
+        <li>Plazoleta Central · Frente a Biblioteca</li>
+        <li>Lunes a viernes: 6:30 a. m. – 6:30 p. m.</li>
+        <li>Sábados: 7:30 a. m. – 1:00 p. m.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Pedidos y Alianzas</h4>
+      <ul>
+        <li><a href="https://wa.me/573101234567" target="_blank" rel="noopener">WhatsApp: +57 310 123 4567</a></li>
+        <li><a href="#catalogo">Catálogo y Combos</a></li>
+        <li><a href="#suscripcion">Catering para Semilleros y Eventos</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal">© 2026 CaféCampus Colombia · Proyecto desarrollado con integración de IA (Claude, Adobe Firefly & Notion).</div>
+</footer>
+
+<script>
+(function(){
+  var box=document.getElementById('stamps'),out=document.getElementById('count'),btns=[];
+  function paint(n){
+    btns.forEach(function(b,i){b.setAttribute('aria-pressed',i<n?'true':'false')});
+    out.textContent=n+' de 20 cafés';
+  }
+  for(var i=0;i<20;i++){
+    (function(i){
+      var b=document.createElement('button');
+      b.type='button';b.className='stamp';b.textContent='☕';
+      b.setAttribute('aria-label','Café '+(i+1));
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',function(){
+        var cur=btns.filter(function(x){return x.getAttribute('aria-pressed')==='true'}).length;
+        paint(cur===i+1?i:i+1);
+      });
+      btns.push(b);box.appendChild(b);
+    })(i);
+  }
+})();
+</script>
+</body>
+</html>
