@@ -56,7 +56,13 @@ section{padding-block:clamp(3.5rem,8vw,6rem)}
 .nav ul{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0}
 .nav ul a{text-decoration:none;font-weight:500;opacity:.88}
 .nav ul a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
-@media (max-width:820px){.nav ul{display:none}}
+.menu-btn{display:none;background:transparent;color:inherit;border:2px solid rgba(255,255,255,.35);border-radius:10px;font-size:1.3rem;line-height:1;padding:.4rem .7rem;cursor:pointer}
+@media (max-width:820px){
+  .menu-btn{display:block;margin-left:auto}
+  .nav ul{display:none;position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;gap:0;background:var(--band);padding:.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,.12)}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:.85rem 0;opacity:1;border-bottom:1px solid rgba(255,255,255,.08)}
+}
 
 /* Hero */
 .hero{padding-top:calc(var(--nav-h) + clamp(2.8rem,7vw,5rem));background:var(--band);color:var(--on-band);overflow:hidden}
@@ -142,7 +148,8 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
       <img src="logo.jpg" alt="Logo CaféCampus">
       <span class="logo">Café<span>Campus</span></span>
     </a>
-    <ul>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">☰</button>
+    <ul id="menu">
       <li><a href="#pilares">Servicio</a></li>
       <li><a href="#catalogo">Menú</a></li>
       <li><a href="#suscripcion">Suscripción</a></li>
@@ -352,6 +359,17 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
 </footer>
 
 <script>
+(function(){
+  var btn=document.getElementById('menuBtn'),menu=document.getElementById('menu');
+  btn.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.textContent=open?'✕':'☰';
+  });
+  menu.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){menu.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='☰';}
+  });
+})();
 (function(){
   var box=document.getElementById('stamps'),out=document.getElementById('count'),btns=[];
   function paint(n){
