@@ -130,6 +130,17 @@ section{padding-block:clamp(3.5rem,8vw,6rem)}
 .punch p{margin-top:1rem;font-size:.92rem;color:var(--muted)}
 @media (max-width:860px){.sub .wrap{grid-template-columns:1fr;gap:2.5rem}}
 
+
+/* Formulario de contacto */
+.contact{background:var(--bg)}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact form{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;display:grid;gap:1rem}
+.contact label{display:grid;gap:.35rem;font-weight:600;font-size:.95rem}
+.contact input,.contact select,.contact textarea{font:400 1rem var(--body);color:var(--text);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:.75rem .9rem;width:100%}
+.contact textarea{min-height:110px;resize:vertical}
+.contact .msg{font-size:.95rem;min-height:1.4em;color:var(--accent);font-weight:600}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr}}
+
 /* Pie */
 footer{background:var(--band);color:var(--on-band);padding-block:3.2rem 2rem}
 footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem}
@@ -327,6 +338,33 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
     </div>
   </div>
 </section>
+
+<section class="contact" id="escribenos">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:0">
+      <h2>Escríbenos</h2>
+      <p>Cuéntanos qué necesitas: un pedido, tu suscripción o catering para tu semillero. Al enviar, se abre WhatsApp con tu mensaje listo.</p>
+    </div>
+    <form id="contactForm" novalidate>
+      <label>Tu nombre
+        <input type="text" id="cNombre" placeholder="Ej: Laura" autocomplete="name" required>
+      </label>
+      <label>¿Qué necesitas?
+        <select id="cTipo">
+          <option>Hacer un pedido</option>
+          <option>Activar la suscripción de 20 cafés</option>
+          <option>Catering para semilleros o eventos</option>
+          <option>Otra consulta</option>
+        </select>
+      </label>
+      <label>Mensaje
+        <textarea id="cMsg" placeholder="Escribe aquí los detalles" required></textarea>
+      </label>
+      <button class="btn" type="submit">Enviar por WhatsApp</button>
+      <p class="msg" id="cEstado" role="status"></p>
+    </form>
+  </div>
+</section>
 </main>
 
 <footer id="contacto">
@@ -368,6 +406,20 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
   });
   menu.addEventListener('click',function(e){
     if(e.target.tagName==='A'){menu.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='☰';}
+  });
+})();
+(function(){
+  var f=document.getElementById('contactForm'),st=document.getElementById('cEstado');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('cNombre').value.trim(),
+        t=document.getElementById('cTipo').value,
+        m=document.getElementById('cMsg').value.trim();
+    if(!n||!m){st.textContent='Completa tu nombre y el mensaje para continuar.';return;}
+    st.textContent='Abriendo WhatsApp…';
+    var txt='Hola CaféCampus, soy '+n+'. '+t+'. '+m;
+    window.open('https://wa.me/573101234567?text='+encodeURIComponent(txt),'_blank','noopener');
+    f.reset();
   });
 })();
 (function(){
